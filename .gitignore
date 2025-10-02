@@ -1,0 +1,29 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# dotenv
+.env
+.env.local
+
+# Sequelize migrations/seeds
+src/database/migrations/*.js~
+src/database/seeders/*.js~
+
+# Logs
+logs/
+*.log
+
+# Jest coverage
+coverage/
+*.lcov
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor config
+.vscode/
+.idea/
