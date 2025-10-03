@@ -4,8 +4,8 @@
   "description": "Projeto destinado ao CNIT 2025 - Porto de Santos.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js",
-    "start": "node src/app.js",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
     "test": "jest",
     "db:migrate": "sequelize-cli db:migrate",
     "db:seed": "sequelize-cli db:seed:all"
