@@ -19,6 +19,7 @@ module.exports = (sequelize) => {
     name: { type: DataTypes.STRING(100), allowNull: false },
     email: { type: DataTypes.STRING(100), allowNull: false, unique: true },
     password_hash: { type: DataTypes.TEXT, allowNull: false },
+    is_2fa_enabled: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     two_factor_code: { type: DataTypes.STRING(6), allowNull: true }
   }, {
     sequelize,
