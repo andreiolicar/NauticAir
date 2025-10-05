@@ -1,30 +1,29 @@
+require('dotenv').config();
 const http = require('http');
 const app = require('./app');
 const db = require('./database/models');
+
 const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0'; // Importante para Render
 
 async function startServer() {
   try {
     // Testar conexão com o banco de dados
     await db.sequelize.authenticate();
-    console.log('✅ Conectado ao banco de dados PostgreSQL com Sequelize');
+    console.log('✅ Conectado ao banco de dados PostgreSQL');
 
-    // Sincronizar models (cuidado em produção - usar migrations ao invés)
-    // await db.sequelize.sync();
-    // console.log('✅ Models sincronizados com o banco de dados');
-
-    // Criar servidor HTTP com o Express app
+    // Criar servidor HTTP
     const server = http.createServer(app);
 
-    // Iniciar o servidor HTTP
-    server.listen(PORT, () => {
-      console.log(`🚀 Servidor NauticAir rodando em http://localhost:${PORT}`);
+    // Iniciar o servidor
+    server.listen(PORT, HOST, () => {
+      console.log(`🚀 Servidor NauticAir rodando na porta ${PORT}`);
       console.log(`📊 API disponível em http://localhost:${PORT}/api`);
     });
 
-    // Tratamento de erros não capturados
+    // Tratamento de erros
     process.on('unhandledRejection', (reason, promise) => {
-      console.error('❌ Rejeição não tratada em:', promise, 'razão:', reason);
+      console.error('❌ Rejeição não tratada:', reason);
       process.exit(1);
     });
 
