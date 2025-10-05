@@ -1,25 +1,17 @@
-// ========================
 // Bibliotecas
-// ========================
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-// ========================
 // Configurações WiFi
-// ========================
 const char* ssid = "Alessandra_2G";
 const char* password = "12798012";
 
-// ========================
 // Configurações API
-// ========================
-const char* apiUrl = "http://192.168.1.9:3000/api/measurements/iot";
-const char* deviceId = "59f97a3b-f935-4e19-8b3e-48c48a02d611"; // ← Usar ID do dispositivo cadastrado
+const char* apiUrl = "https://nauticair-api.onrender.com/api/measurements/iot";
+const char* deviceId = "9856baa0-2cff-4d14-b9c9-b9b97739a00c"; // ← Usar ID do dispositivo cadastrado
 
-// ========================
 // Definição de pinos
-// ========================
 #define MQ135_PIN 34   // MQ-135 (qualidade do ar) → AO
 #define MQ7_PIN   32   // MQ-7 (CO2 simulado) → AO
 
@@ -27,21 +19,15 @@ const char* deviceId = "59f97a3b-f935-4e19-8b3e-48c48a02d611"; // ← Usar ID do
 #define LED_AMARELO  26   // IO26 -> LED amarelo
 #define LED_VERMELHO 27   // IO27 -> LED vermelho
 
-// ========================
 // Limiar para classificação
-// ========================
 #define LIMIAR_VERDE 800
 #define LIMIAR_AMARELO 1000
 
-// ========================
 // Variáveis globais
-// ========================
 unsigned long ultimoEnvio = 0;
 const unsigned long intervaloEnvio = 30000; // Enviar a cada x segundos
 
-// ========================
 // Configuração inicial
-// ========================
 void setup() {
   Serial.begin(115200);
 
@@ -59,9 +45,7 @@ void setup() {
   Serial.println("Sistema IoT NauticAir iniciado!");
 }
 
-// ========================
 // Loop principal
-// ========================
 void loop() {
   // Verificar conexão WiFi
   if (WiFi.status() != WL_CONNECTED) {
@@ -109,9 +93,7 @@ void loop() {
   delay(100);
 }
 
-// ========================
 // Função: Conectar WiFi
-// ========================
 void conectarWiFi() {
   Serial.print("Conectando ao WiFi");
   WiFi.begin(ssid, password);
@@ -132,9 +114,7 @@ void conectarWiFi() {
   }
 }
 
-// ========================
 // Função: Enviar para API
-// ========================
 void enviarParaAPI(float co_ppm, float co2_gph) {
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("WiFi desconectado! Não é possível enviar dados.");
@@ -173,9 +153,7 @@ void enviarParaAPI(float co_ppm, float co2_gph) {
   http.end();
 }
 
-// ========================
 // Função: Classificar qualidade do ar
-// ========================
 String classificarQualidade(int valor) {
   if (valor < LIMIAR_VERDE) {
     return "Bom";
@@ -186,9 +164,7 @@ String classificarQualidade(int valor) {
   }
 }
 
-// ========================
 // Função: Atualizar LEDs
-// ========================
 void atualizarLEDs(String status) {
   if (status == "Bom") {
     digitalWrite(LED_VERDE, HIGH);
@@ -205,9 +181,7 @@ void atualizarLEDs(String status) {
   }
 }
 
-// ========================
 // Função: Testar LEDs
-// ========================
 void testarLEDs() {
   Serial.println("Testando LEDs...");
 
