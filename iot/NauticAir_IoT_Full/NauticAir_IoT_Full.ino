@@ -14,8 +14,8 @@ const char* password = "12798012";
 // ========================
 // Configurações API
 // ========================
-const char* apiUrl = "http://192.168.1.2:3000/api/measurements/iot";
-const char* deviceId = "ad620af6-e4b8-4946-ad88-8196957896ed"; // ← Usar ID do dispositivo cadastrado
+const char* apiUrl = "http://192.168.1.9:3000/api/measurements/iot";
+const char* deviceId = "59f97a3b-f935-4e19-8b3e-48c48a02d611"; // ← Usar ID do dispositivo cadastrado
 
 // ========================
 // Definição de pinos
@@ -37,7 +37,7 @@ const char* deviceId = "ad620af6-e4b8-4946-ad88-8196957896ed"; // ← Usar ID do
 // Variáveis globais
 // ========================
 unsigned long ultimoEnvio = 0;
-const unsigned long intervaloEnvio = 5000; // Enviar a cada 5 segundos
+const unsigned long intervaloEnvio = 30000; // Enviar a cada x segundos
 
 // ========================
 // Configuração inicial
@@ -70,7 +70,7 @@ void loop() {
     return;
   }
 
-  // Enviar medições a cada 5 segundos
+  // Enviar medições a cada x segundos
   unsigned long tempoAtual = millis();
   if (tempoAtual - ultimoEnvio >= intervaloEnvio) {
     ultimoEnvio = tempoAtual;
