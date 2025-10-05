@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
       Measurement.belongsTo(models.Device, { foreignKey: 'device_id' });
     }
   }
+
   Measurement.init({
     id: {
       type: DataTypes.UUID,
@@ -23,7 +24,8 @@ module.exports = (sequelize) => {
     modelName: 'Measurement',
     tableName: 'measurements',
     timestamps: true,
-    underscored: true,
+    underscored: true
   });
+
   return Measurement;
 };
