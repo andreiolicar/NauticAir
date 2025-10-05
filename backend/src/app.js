@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth.routes');
 const devicesRoutes = require('./routes/devices.routes');
 const measurementsRoutes = require('./routes/measurements.routes');
 const alertsRoutes = require('./routes/alerts.routes');
+const routesHistoryRoutes = require('./routes/routesHistory.routes');
 const errorHandler = require('./middlewares/errorHandler');
 
 app.use(cors());
@@ -23,6 +24,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/devices', devicesRoutes);
 app.use('/api/measurements', measurementsRoutes);
 app.use('/api/alerts', alertsRoutes);
+app.use('/api/routes-history', routesHistoryRoutes);
 
 // Middleware de erro
 app.use(errorHandler);
