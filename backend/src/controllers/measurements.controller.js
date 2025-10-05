@@ -1,8 +1,31 @@
 const measurementsService = require('../services/measurements.service');
 
 class MeasurementsController {
-  // POST /api/measurements - Dispositivo IoT envia medição
+
+  // POST /api/measurements - Dispositivo IoT envia medição (COM AUTENTICAÇÃO)
   async createMeasurement(req, res, next) {
+    try {
+      const { device_id, co_ppm, co2_gph, duration_h } = req.body;
+
+      const measurement = await measurementsService.createMeasurement({
+        device_id,
+        co_ppm,
+        co2_gph,
+        duration_h
+      });
+
+      res.status(201).json({
+        success: true,
+        message: 'Medição registrada com sucesso',
+        data: measurement
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // POST /api/measurements/iot - Dispositivo IoT envia medição (SEM AUTENTICAÇÃO)
+  async createMeasurementIoT(req, res, next) {
     try {
       const { device_id, co_ppm, co2_gph, duration_h } = req.body;
 
