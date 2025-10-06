@@ -8,7 +8,7 @@ const navigationItems = [
   { label: 'Footer', href: '#footer' }
 ];
 
-const Navigation = () => {
+const Navigation = ({ mobile = false, onClose }) => {
   const handleClick = (e, href) => {
     e.preventDefault();
     const element = document.querySelector(href);
@@ -18,7 +18,25 @@ const Navigation = () => {
         block: 'start'
       });
     }
+    if (mobile && onClose) onClose();
   };
+
+  if (mobile) {
+    return (
+      <nav className="flex flex-col gap-3">
+        {navigationItems.map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            onClick={(e) => handleClick(e, item.href)}
+            className="text-grey-600 text-base font-normal font-['Manrope'] hover:text-blue-600 transition-colors cursor-pointer py-2"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    );
+  }
 
   return (
     <motion.nav 

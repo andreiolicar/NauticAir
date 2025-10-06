@@ -14,7 +14,7 @@ const ContactCard = ({ icon, title, description, buttonText, link }) => {
 
   return (
     <motion.div 
-      className="w-[280px] p-5 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 inline-flex flex-col justify-start items-start gap-3.5 transition-colors"
+      className="w-full md:w-[280px] p-5 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 inline-flex flex-col justify-start items-start gap-3.5 transition-colors"
       variants={staggerItem}
       whileHover={{ 
         backgroundColor: "#f9fafb",
@@ -39,7 +39,7 @@ const ContactCard = ({ icon, title, description, buttonText, link }) => {
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="px-6 py-2.5 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-center items-center gap-2.5 overflow-hidden transition-colors"
+        className="w-full px-6 py-2.5 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-center items-center gap-2.5 overflow-hidden transition-colors"
         whileHover={{ 
           backgroundColor: "#f3f4f6",
           transition: { duration: 0.2 }

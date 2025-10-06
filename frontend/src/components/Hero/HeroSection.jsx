@@ -7,7 +7,7 @@ import CTAButtons from '../common/CTAButtons';
 
 const HeroSection = () => {
   return (
-    <div className="flex flex-col justify-start items-center gap-10">
+    <div className="flex flex-col justify-start items-center gap-6 md:gap-10 px-4 md:px-0">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -43,7 +43,7 @@ const HeroSection = () => {
         transition={{ 
           duration: 0.6, 
           delay: 0.9,
-          ease: [0.34, 1.56, 0.64, 1] // Bounce
+          ease: [0.34, 1.56, 0.64, 1]
         }}
       >
         <CTAButtons 

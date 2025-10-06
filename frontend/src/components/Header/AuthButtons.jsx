@@ -1,7 +1,26 @@
 // src/components/Header/AuthButtons.jsx
 import { Link } from 'react-router-dom';
 
-const AuthButtons = () => {
+const AuthButtons = ({ mobile = false }) => {
+  if (mobile) {
+    return (
+      <div className="flex flex-col gap-3 w-full">
+        <Link
+          to="/registro"
+          className="w-full px-5 py-2 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 text-center text-grey-600 text-sm font-medium font-['Manrope'] hover:bg-gray-50 transition-colors"
+        >
+          Registro
+        </Link>
+        <Link
+          to="/login"
+          className="w-full px-5 py-2 bg-blue-600 rounded-lg text-center text-white text-sm font-medium font-['Manrope'] hover:bg-blue-700 transition-colors"
+        >
+          Login
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-lg flex justify-end items-center gap-2.5">
       <Link
