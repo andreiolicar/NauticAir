@@ -1,12 +1,12 @@
-// src/pages/Register.jsx
+// src/pages/TwoFactorAuth.jsx
 import { motion } from 'framer-motion';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Divider from '../components/common/Divider';
-import RegisterForm from '../components/Auth/RegisterForm';
+import TwoFactorForm from '../components/Auth/TwoFactorForm';
 import { fadeIn } from '../utils/animations';
 
-const Register = () => {
+const TwoFactorAuth = () => {
   return (
     <div className="min-h-screen w-full py-5 bg-white flex flex-col justify-start items-center gap-10 md:gap-14">
       <Header />
@@ -17,7 +17,7 @@ const Register = () => {
         initial="hidden"
         animate="visible"
       >
-        <RegisterForm />
+        <TwoFactorForm />
       </motion.main>
 
       <Divider />
@@ -27,4 +27,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default TwoFactorAuth;
