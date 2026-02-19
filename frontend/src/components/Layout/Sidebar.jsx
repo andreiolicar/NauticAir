@@ -59,7 +59,10 @@ const Sidebar = ({ sections, profile, onLogout, onEditProfile }) => {
               <ul className="flex flex-col space-y-1">
                 {section.items.map((item) => {
                   const Icon = iconMap[item.key] || LayoutDashboard;
-                  const isActive = location.pathname === item.to;
+                  const isDashboardRoot = item.to === '/dashboard';
+                  const isActive = isDashboardRoot
+                    ? location.pathname === item.to
+                    : location.pathname === item.to || location.pathname.startsWith(`${item.to}/`);
 
                   return (
                     <motion.li key={item.key} variants={staggerItem}>

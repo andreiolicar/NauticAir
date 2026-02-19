@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { Clock3, Coins, Percent, Radiation } from 'lucide-react';
-import Sidebar from '../components/Dashboard/Sidebar';
 import PageHeader from '../components/Dashboard/PageHeader';
 import MetricCard from '../components/Dashboard/MetricCard';
 import EmissionsChart from '../components/Dashboard/EmissionsChart';
@@ -16,27 +14,10 @@ import {
 } from '../utils/animations';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [month, setMonth] = useState('Maio');
   const [historyStatusFilter, setHistoryStatusFilter] = useState('all');
   const [selectedRange, setSelectedRange] = useState('Ultimos 7 dias');
-
-  const sidebarSections = [
-    {
-      title: 'Menu Principal',
-      items: [
-        { key: 'dashboard', label: 'Dashboard', to: '/dashboard' },
-        { key: 'alerts', label: 'Alertas', to: '/dashboard/alerts' },
-        { key: 'devices', label: 'Dispositivos', to: '/dashboard/devices' },
-        { key: 'history', label: 'Historico', to: '/dashboard/history' }
-      ]
-    },
-    {
-      title: 'Outros',
-      items: [{ key: 'settings', label: 'Configuracoes', to: '/dashboard/settings' }]
-    }
-  ];
 
   const metrics = [
     { id: 'co', icon: Percent, title: 'Concentracao de CO', value: '45 PPM' },
@@ -110,96 +91,82 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-['Manrope'] text-gray-900">
-      <div className="flex min-h-screen w-full">
-        <Sidebar
-          sections={sidebarSections}
-          profile={{
-            name: 'Andrei Carneiro',
-            email: 'andreicarneiro@email.com',
-            initials: 'AC'
-          }}
-          onLogout={() => navigate('/login')}
-          onEditProfile={() => navigate('/dashboard/settings')}
+    <>
+      <PageHeader
+        title="Dashboard"
+        description="Visualize os niveis de emissao em tempo real, historico recente e principais alertas"
+        month={month}
+        baseMonth="Maio"
+        onMonthChange={setMonth}
+      />
+
+      <motion.section
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+        className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+        aria-label="Metricas principais"
+      >
+        {metrics.map((metric) => (
+          <MetricCard key={metric.id} icon={metric.icon} title={metric.title} value={metric.value} />
+        ))}
+      </motion.section>
+
+      <section className="mt-4 grid gap-4 xl:grid-cols-[2fr_1fr]">
+        <EmissionsChart
+          data={chartData}
+          selectedRange={selectedRange}
+          onRangeChange={setSelectedRange}
         />
 
-        <main className="ml-72 min-h-screen flex-1 px-4 pb-8 pt-6 md:px-6" aria-label="Conteudo principal do dashboard">
-          <PageHeader
-            title="Dashboard"
-            description="Visualize os niveis de emissao em tempo real, historico recente e principais alertas"
-            month={month}
-            baseMonth="Maio"
-            onMonthChange={setMonth}
-          />
+        <motion.section
+          variants={scrollReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="rounded-lg border border-gray-200 bg-white p-5"
+          aria-labelledby="devices-title"
+        >
+          <header className="mb-4 flex items-center justify-between">
+            <h2 id="devices-title" className="text-base font-bold font-['Manrope'] text-gray-900">
+              Dispositivos
+            </h2>
+            <button
+              type="button"
+              className="text-sm font-semibold font-['Manrope'] text-gray-400 transition-colors hover:text-gray-600"
+              aria-label="Ver todos os dispositivos"
+            >
+              Ver todos
+            </button>
+          </header>
 
-          <motion.section
+          <div className="mb-4 h-px w-full bg-zinc-100" />
+
+          <motion.ul
             variants={staggerContainer}
             initial="hidden"
-            animate="visible"
-            className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4"
-            aria-label="Metricas principais"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="space-y-4"
           >
-            {metrics.map((metric) => (
-              <MetricCard key={metric.id} icon={metric.icon} title={metric.title} value={metric.value} />
+            {devices.map((device) => (
+              <DeviceCard key={device.id} device={device} />
             ))}
-          </motion.section>
+          </motion.ul>
+        </motion.section>
+      </section>
 
-          <section className="mt-4 grid gap-4 xl:grid-cols-[2fr_1fr]">
-            <EmissionsChart
-              data={chartData}
-              selectedRange={selectedRange}
-              onRangeChange={setSelectedRange}
-            />
+      <section className="mt-4 grid gap-4 xl:grid-cols-[2fr_1fr]">
+        <HistoryTable
+          rows={filteredHistoryRows}
+          statusFilter={historyStatusFilter}
+          onStatusFilterChange={setHistoryStatusFilter}
+        />
+        <AlertsList alerts={alerts} />
+      </section>
 
-            <motion.section
-              variants={scrollReveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              className="rounded-lg border border-gray-200 bg-white p-5"
-              aria-labelledby="devices-title"
-            >
-              <header className="mb-4 flex items-center justify-between">
-                <h2 id="devices-title" className="text-base font-bold font-['Manrope'] text-gray-900">
-                  Dispositivos
-                </h2>
-                <button
-                  type="button"
-                  className="text-sm font-semibold font-['Manrope'] text-gray-400 transition-colors hover:text-gray-600"
-                  aria-label="Ver todos os dispositivos"
-                >
-                  Ver todos
-                </button>
-              </header>
-
-              <div className="mb-4 h-px w-full bg-zinc-100" />
-
-              <motion.ul
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="space-y-4"
-              >
-                {devices.map((device) => (
-                  <DeviceCard key={device.id} device={device} />
-                ))}
-              </motion.ul>
-            </motion.section>
-          </section>
-
-          <section className="mt-4 grid gap-4 xl:grid-cols-[2fr_1fr]">
-            <HistoryTable
-              rows={filteredHistoryRows}
-              statusFilter={historyStatusFilter}
-              onStatusFilterChange={setHistoryStatusFilter}
-            />
-            <AlertsList alerts={alerts} />
-          </section>
-        </main>
-      </div>
       <OnboardingModal isOpen={showOnboarding} onComplete={handleCompleteOnboarding} />
-    </div>
+    </>
   );
 };
 

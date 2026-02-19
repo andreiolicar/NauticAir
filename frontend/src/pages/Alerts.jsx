@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Sidebar from '../components/Dashboard/Sidebar';
 import AlertsPageHeader from '../components/Alerts/AlertsPageHeader';
 import AlertsFeed from '../components/Alerts/AlertsFeed';
 import AlertDetailsDrawer from '../components/Alerts/AlertDetailsDrawer';
@@ -23,22 +22,6 @@ const Alerts = () => {
   const [detailsError, setDetailsError] = useState(null);
 
   const validFilters = new Set(['all', 'critical', 'positive', 'warning']);
-
-  const sidebarSections = [
-    {
-      title: 'Menu Principal',
-      items: [
-        { key: 'dashboard', label: 'Dashboard', to: '/dashboard' },
-        { key: 'alerts', label: 'Alertas', to: '/dashboard/alerts' },
-        { key: 'devices', label: 'Dispositivos', to: '/dashboard/devices' },
-        { key: 'history', label: 'Historico', to: '/dashboard/history' }
-      ]
-    },
-    {
-      title: 'Outros',
-      items: [{ key: 'settings', label: 'Configuracoes', to: '/dashboard/settings' }]
-    }
-  ];
 
   const [alerts] = useState([
     {
@@ -233,38 +216,23 @@ const Alerts = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 font-['Manrope'] text-slate-900">
-      <div className="flex min-h-screen w-full">
-        <Sidebar
-          sections={sidebarSections}
-          profile={{
-            name: 'Andrei Carneiro',
-            email: 'andreicarneiro@email.com',
-            initials: 'AC'
-          }}
-          onLogout={() => navigate('/login')}
-          onEditProfile={() => navigate('/dashboard/settings')}
+    <>
+      <AlertsPageHeader
+        title="Alertas"
+        description="Visualize o historico completo de alertas"
+        statusFilter={statusFilter}
+        onStatusFilterChange={handleStatusFilterChange}
+        onToggleSort={handleToggleSort}
+        onReset={handleReset}
+      />
+
+      <section className="mt-4">
+        <AlertsFeed
+          alerts={visibleAlerts}
+          listKey={`${statusFilter}-${sortOrder}`}
+          onOpenDetails={handleOpenDetails}
         />
-
-        <main className="ml-72 min-h-screen flex-1 px-4 pb-8 pt-6 md:px-6" aria-label="Conteudo principal de alertas">
-          <AlertsPageHeader
-            title="Alertas"
-            description="Visualize o historico completo de alertas"
-            statusFilter={statusFilter}
-            onStatusFilterChange={handleStatusFilterChange}
-            onToggleSort={handleToggleSort}
-            onReset={handleReset}
-          />
-
-          <section className="mt-4">
-            <AlertsFeed
-              alerts={visibleAlerts}
-              listKey={`${statusFilter}-${sortOrder}`}
-              onOpenDetails={handleOpenDetails}
-            />
-          </section>
-        </main>
-      </div>
+      </section>
 
       <AlertDetailsDrawer
         isOpen={Boolean(alertId)}
@@ -275,7 +243,7 @@ const Alerts = () => {
         onClose={handleCloseDetails}
         onRetry={handleRetryDetails}
       />
-    </div>
+    </>
   );
 };
 
