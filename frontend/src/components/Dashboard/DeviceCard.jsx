@@ -16,7 +16,10 @@ const DeviceCard = ({ device }) => {
   const label = labelMap[device.status] || labelMap.disconnected;
 
   return (
-    <motion.li variants={staggerItem} className="flex items-center justify-between gap-3">
+    <motion.li
+      variants={staggerItem}
+      className="flex cursor-pointer items-center justify-between gap-3 rounded-lg p-1 transition-colors hover:bg-slate-50"
+    >
       <div className="flex items-center gap-3">
         <img
           src="https://placehold.co/56x56"

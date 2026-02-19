@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Clock3, Coins, Percent, Radiation } from 'lucide-react';
@@ -9,6 +9,7 @@ import EmissionsChart from '../components/Dashboard/EmissionsChart';
 import DeviceCard from '../components/Dashboard/DeviceCard';
 import HistoryTable from '../components/Dashboard/HistoryTable';
 import AlertsList from '../components/Dashboard/AlertsList';
+import OnboardingModal from '../components/Dashboard/OnboardingModal';
 import {
   scrollReveal,
   staggerContainer
@@ -16,6 +17,7 @@ import {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const [month, setMonth] = useState('Maio');
   const [historyStatusFilter, setHistoryStatusFilter] = useState('all');
   const [selectedRange, setSelectedRange] = useState('Ultimos 7 dias');
@@ -94,6 +96,18 @@ const Dashboard = () => {
   const filteredHistoryRows = historyStatusFilter === 'all'
     ? historyRows
     : historyRows.filter((row) => row.status === historyStatusFilter);
+
+  useEffect(() => {
+    const hasSeenOnboarding = localStorage.getItem('nauticair_dashboard_onboarding_seen');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
+  const handleCompleteOnboarding = () => {
+    localStorage.setItem('nauticair_dashboard_onboarding_seen', 'true');
+    setShowOnboarding(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 font-['Manrope'] text-gray-900">
@@ -184,6 +198,7 @@ const Dashboard = () => {
           </section>
         </main>
       </div>
+      <OnboardingModal isOpen={showOnboarding} onComplete={handleCompleteOnboarding} />
     </div>
   );
 };

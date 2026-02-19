@@ -42,11 +42,10 @@ const EmissionsChart = ({ data, selectedRange, onRangeChange }) => {
                 type="button"
                 variants={fadeIn}
                 onClick={() => onRangeChange(range)}
-                className={`rounded-lg px-4 py-2 text-sm font-semibold font-['Manrope'] transition-colors ${
-                  active
-                    ? 'bg-gray-50 text-gray-900'
+                className={`rounded-lg px-4 py-2 text-sm font-semibold font-['Manrope'] transition-colors ${active
+                    ? 'border border-gray-200 bg-gray-50 text-gray-900'
                     : 'border border-gray-200 bg-white text-gray-900 hover:bg-gray-50'
-                }`}
+                  }`}
                 aria-pressed={active}
               >
                 {range}
