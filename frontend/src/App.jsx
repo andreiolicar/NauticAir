@@ -6,6 +6,9 @@ import Verification from './pages/TwoFactorAuth';
 import Dashboard from './pages/Dashboard';
 import Alerts from './pages/Alerts';
 import Devices from './pages/Devices';
+import EmissionsHistory from './pages/EmissionsHistory';
+import Settings from './pages/Settings';
+import ProfileEdit from './pages/ProfileEdit';
 import RestrictedLayout from './components/Layout/RestrictedLayout';
 
 function App() {
@@ -22,8 +25,10 @@ function App() {
           <Route path="alerts/:alertId" element={<Alerts />} />
           <Route path="devices" element={<Devices />} />
           <Route path="devices/:deviceId" element={<Devices />} />
-          <Route path="history" element={<Dashboard />} />
-          <Route path="settings" element={<Dashboard />} />
+          <Route path="history" element={<EmissionsHistory />} />
+          <Route path="history/:historyId" element={<EmissionsHistory />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="profile" element={<ProfileEdit />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

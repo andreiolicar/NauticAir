@@ -35,11 +35,14 @@ const UserProfile = ({ name, email, initials, onLogout, onEditProfile }) => {
     <div ref={containerRef} className="relative border-t border-gray-200 bg-white px-4 pb-6 pt-4">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="inline-flex items-center justify-center overflow-hidden rounded-lg bg-zinc-100 px-2 py-1.5">
-            <span className="text-base font-medium font-['Manrope'] leading-7 text-slate-900">
-              {initials}
-            </span>
-          </div>
+          <button
+            type="button"
+            onClick={() => onEditProfile?.()}
+            className="inline-flex items-center justify-center overflow-hidden rounded-lg bg-zinc-100 px-2 py-1.5 transition-colors hover:bg-zinc-200"
+            aria-label="Editar perfil"
+          >
+            <span className="text-base font-medium font-['Manrope'] leading-7 text-slate-900">{initials}</span>
+          </button>
 
           <div className="min-w-0">
             <p className="truncate text-xs font-bold font-['Manrope'] leading-3 text-slate-900">{name}</p>

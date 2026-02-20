@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import LogoutConfirmModal from './LogoutConfirmModal';
 
 const sidebarSections = [
   {
@@ -25,6 +27,20 @@ const profile = {
 
 const RestrictedLayout = () => {
   const navigate = useNavigate();
+  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+
+  const handleRequestLogout = () => {
+    setIsLogoutConfirmOpen(true);
+  };
+
+  const handleCancelLogout = () => {
+    setIsLogoutConfirmOpen(false);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutConfirmOpen(false);
+    navigate('/login');
+  };
 
   return (
     <div className="min-h-screen bg-neutral-50 font-['Manrope'] text-slate-900">
@@ -32,14 +48,20 @@ const RestrictedLayout = () => {
         <Sidebar
           sections={sidebarSections}
           profile={profile}
-          onLogout={() => navigate('/login')}
-          onEditProfile={() => navigate('/dashboard/settings')}
+          onLogout={handleRequestLogout}
+          onEditProfile={() => navigate('/dashboard/profile')}
         />
 
         <main className="ml-72 min-h-screen flex-1 px-4 pb-8 pt-6 md:px-6" aria-label="Conteudo principal da area restrita">
           <Outlet />
         </main>
       </div>
+
+      <LogoutConfirmModal
+        isOpen={isLogoutConfirmOpen}
+        onCancel={handleCancelLogout}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 };
