@@ -2,7 +2,6 @@
   <img src="assets/branding/logo-nauticair-dark.png" alt="NauticAir" width="120" />
   <h1>NauticAir</h1>
   <p><strong>Plataforma integrada para monitoramento de emissões no contexto marítimo</strong></p>
-  <p>IoT + API + Banco de Dados + Web App em uma única arquitetura operacional</p>
 </div>
 
 <p align="center">
@@ -99,22 +98,29 @@ npm run dev
 
 ## Contribuidores
 
-| Nome          | Papel                                   |
-| ------------- | --------------------------------------- |
-| Andrei Olicar | Idealização e desenvolvimento principal |
-
-Contribuições são bem-vindas. Para contribuir:
-1. Faça um fork do repositório.
-2. Crie uma branch de feature (`feat/minha-feature`).
-3. Abra um Pull Request com contexto técnico e screenshots quando houver UI.
-
-## Status atual
-- Stack integrada e modularizada.
-- Documentação técnica separada por domínio (API, DB, IoT).
-- Frontend com fluxos operacionais principais implementados.
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/andreiolicar">
+        <img src="https://avatars.githubusercontent.com/u/166918480?v=4" width="100px;" alt="Ícone do Andrei no GitHub"/><br>
+        <sub>
+          <b>Andrei Carneiro</b>
+        </sub> <br>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/nsmillena">
+        <img src="https://avatars.githubusercontent.com/u/nsmillena?v=4" width="100px;" alt="Ícone da Millena no GitHub"/><br>
+        <sub>
+          <b>Millena Nunes</b>
+        </sub> <br>
+      </a>
+    </td>
+  </tr>
+</table>
 
 ---
 
 <p align="center">
-  NauticAir • CNIT 2025 • Porto de Santos
+  • NauticAir 2026 •
 </p>
