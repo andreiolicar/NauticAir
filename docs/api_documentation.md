@@ -945,7 +945,7 @@ BCRYPT_SALT_ROUNDS=10
 - **Repositório GitHub**: https://github.com/andreiolicar/NauticAir
 - **Documentação do Banco de Dados**: `DATABASE_SCHEMA.md`
 - **Documentação do IoT**: `IOT_SETUP.md`
-- **Autores**: Andrei Carneiro, Daniel Batista, Millena Nunes, Nikolas Heiderich
+- **Autores**: Andrei Carneiro, Millena Nunes
 - **Instituição**: ETEC Zona Leste
 
 ---
